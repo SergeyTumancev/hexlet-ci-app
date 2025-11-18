@@ -1,4 +1,3 @@
-# file: .github/workflows/show-directory.yml
 name: show-directory
 
 on: push
@@ -9,15 +8,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Setup
-        run: make setup
-      
-      - name: Start server and run tests
+      - name: Setup and build
         run: |
-          # Запускаем сервер в фоновом режиме
-          make start &
-          # Ждем немного пока сервер запустится
-          sleep 10
-          # Запускаем тесты
-          make test
-          make lint
+          make setup
+          
+      - name: Run tests
+        run: make test
+      
+      - name: Run linter
+        run: make lint
