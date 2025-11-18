@@ -9,10 +9,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Setup and test
+      - name: Setup
+        run: make setup
+      
+      - name: Start server and run tests
         run: |
-          make setup
+          # Запускаем сервер в фоновом режиме
+          make start &
+          # Ждем немного пока сервер запустится
+          sleep 10
+          # Запускаем тесты
           make test
           make lint
-
-      
